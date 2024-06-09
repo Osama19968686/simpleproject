@@ -1,0 +1,2 @@
+module BuHelper
+end
