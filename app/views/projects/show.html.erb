@@ -4,5 +4,8 @@
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+<% if current_user.qa? %>
 <%= link_to 'Report Bug', new_project_bug_path(@project) %>
+<% end %>
+
 <%= link_to 'Show Bugs', project_bug_path(@project) %>

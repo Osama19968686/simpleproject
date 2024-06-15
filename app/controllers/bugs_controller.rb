@@ -2,6 +2,7 @@ class BugsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_project
     before_action :set_bug, only: [:show, :edit, :update, :destroy]
+    before_action :authorize_qa, only: [:new, :create]
   
     def index
       @bugs = @project.bugs
@@ -16,8 +17,9 @@ class BugsController < ApplicationController
   
     def create
       @bug = @project.bugs.build(bug_params)
-      @bug.user = current_user
+      @bug.user_id = current_user
       if @bug.save
+        BugMailer.bug_assigned(@bug).deliver_now
         redirect_to project_bug_path(@project, @bug), notice: 'Bug was successfully created.'
       else
         render :new
@@ -60,8 +62,15 @@ class BugsController < ApplicationController
       redirect_to project_bugs_path(@project), alert: "Bug not found."
     end
   
+    def authorize_qa
+      unless current_user.qa?
+        redirect_to project_bugs_path(@project), alert: 'Only QA can report bugs.'
+      end
+    end
+    
+
     def bug_params
-      params.require(:bug).permit(:title, :description, :status, :screenshot)
+      params.require(:bug).permit(:title, :description, :status, :screenshot,:assigned_to_id)
     end
   end
   
