@@ -1,0 +1,8 @@
+<h1><%= @project.name %></h1>
+<p><%= @project.description %></p>
+<p>Created by: <%= @project.user.email %></p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
+<%= link_to 'Report Bug', new_project_bug_path(@project) %>
+<%= link_to 'Show Bugs', project_bug_path(@project) %>

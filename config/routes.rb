@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :projects
+  resources :projects do
+    resources :bugs do
+      member do
+        delete :remove_screenshot
+      end
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -9,5 +15,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "project#index"
+  root "projects#index"
 end

@@ -1,0 +1,46 @@
+<h1>Edit Bug</h1>
+
+<%= form_with(model: [@project, @bug], local: true) do |form| %>
+  <% if @bug.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
+      <ul>
+        <% @bug.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Bug.statuses.keys.map { |status| [status.humanize, status] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :screenshot %>
+    <%= form.file_field :screenshot %>
+    <% if @bug.screenshot.attached? %>
+      <p>
+        <%= image_tag @bug.screenshot %>
+        <%= link_to 'Remove Screenshot', remove_screenshot_project_bug_path(@project, @bug), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Update Bug' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', project_bug_path(@project, @bug) %>
