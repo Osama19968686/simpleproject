@@ -1,11 +1,22 @@
 <h1><%= @project.name %></h1>
-<p><%= @project.description %></p>
+<h5>Description:</h5><p><%= @project.description %></p>
+
 <p>Created by: <%= @project.user.email %></p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
-<% if current_user.qa? %>
-<%= link_to 'Report Bug', new_project_bug_path(@project) %>
-<% end %>
-
-<%= link_to 'Show Bugs', project_bug_path(@project) %>
+<hr>
+<%= link_to edit_project_path(@project), class: 'btn btn-primary', title: 'Edit' do %>
+    <i class="fa fa-edit"></i> Edit
+  <% end %>
+  
+  <%= link_to projects_path, class: 'btn btn-secondary', title: 'Back' do %>
+    <i class="fa fa-arrow-left"></i> Back
+  <% end %>
+  
+  <% if current_user.qa? %>
+    <%= link_to new_project_bug_path(@project), class: 'btn btn-danger', title: 'Report Bug' do %>
+      <i class="fa fa-bug"></i> Report Bug
+    <% end %>
+  <% end %>
+</div>
+<%= link_to project_bug_path(@project), class: 'btn btn-info', title: 'Show Bugs' do %>
+    <i class="fa fa-bug"></i> Show Bugs
+  <% end %>

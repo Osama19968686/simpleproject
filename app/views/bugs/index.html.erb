@@ -1,6 +1,7 @@
 <h1>Bugs</h1>
-
-<%= link_to 'New Bug', new_project_bug_path(@project) %>
+<% if current_user.qa? %>
+<%= link_to 'Report Bug', new_project_bug_path(@project) %>
+<% end %>
 
 <ul>
   <% @bugs.each do |bug| %>

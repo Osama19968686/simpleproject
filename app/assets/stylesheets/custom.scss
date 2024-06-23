@@ -1,0 +1,10 @@
+body {
+    background-color: #eeeeeef3; // Change this to your desired background color
+    background-image: url('background.jpg'); /* Replace with your image file name */
+  background-size: contain;
+  background-position: center; /* Ensures the image covers the entire background */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  }
+  @import "font-awesome-sprockets";
+@import "font-awesome";

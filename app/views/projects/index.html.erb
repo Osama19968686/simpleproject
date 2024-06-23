@@ -1,14 +1,30 @@
-<h1>Projects</h1>
 
-
-  <%= link_to 'New', new_project_path(@project) %>
-
-<ul>
-  <% @projects.each do |project| %>
-    <li>
-      <%= link_to project.name, project_path(project) %>
-      <%= link_to 'Edit', edit_project_path(project) %>
-      <%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
+<%= link_to new_project_path(@project), class: 'btn btn-success', title: 'Add New Project' do %>
+  <i class="fa fa-plus"></i> Add New Project
+<% end %>
+<div class="container mt-4">
+  <div class="row">
+    <% @projects.each do |project| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= project.name %></h5>
+            <hr>
+            <p class="card-text"><h6>Description:</h6><%= truncate(project.description, length: 100) %></p>
+            <%= link_to project_path(project), class: 'btn btn-primary', title: 'View' do %>
+              <i class="fa fa-eye"></i>
+            <% end %>
+            <% if current_user.manager? %>
+            <%= link_to edit_project_path(project), class: 'btn btn-secondary', title: 'Edit' do %>
+              <i class="fa fa-edit"></i>
+            <% end %>
+            <% end %>
+            <%= link_to project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger', title: 'Delete' do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

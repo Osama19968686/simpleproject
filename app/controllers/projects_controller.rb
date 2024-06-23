@@ -15,12 +15,25 @@ def create
     end
   end
 
+  def edit
+    @project = Project.find(params[:id])
+  end
+  
   def show
     @project = Project.find(params[:id])
   end
 
 def project_params
 params.require(:project).permit(:name, :description)
+end
+
+def update
+  @project = Project.find(params[:id])
+  if @project.update(project_params)
+    redirect_to @project, notice: 'Project was successfully updated.'
+  else
+    render :edit
+  end
 end
 
 def new

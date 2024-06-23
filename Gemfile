@@ -45,7 +45,10 @@ gem "jquery-rails"
 gem "bootstrap"
 gem "sassc-rails"
 gem 'image_processing', '~> 1.2'
-
+gem 'font-awesome-sass', '~> 5.15'
+group :development do
+  gem 'letter_opener'
+end
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
